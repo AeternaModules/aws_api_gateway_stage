@@ -4,7 +4,7 @@ output "api_gateway_stages_id" {
 }
 output "api_gateway_stages_access_log_settings" {
   description = "Map of access_log_settings values across all api_gateway_stages, keyed the same as var.api_gateway_stages"
-  value       = { for k, v in aws_api_gateway_stage.api_gateway_stages : k => v.access_log_settings if v.access_log_settings != null && length(v.access_log_settings) > 0 }
+  value       = { for k, v in aws_api_gateway_stage.api_gateway_stages : k => one(v.access_log_settings) if v.access_log_settings != null && length(v.access_log_settings) > 0 }
 }
 output "api_gateway_stages_arn" {
   description = "Map of arn values across all api_gateway_stages, keyed the same as var.api_gateway_stages"
@@ -20,7 +20,7 @@ output "api_gateway_stages_cache_cluster_size" {
 }
 output "api_gateway_stages_canary_settings" {
   description = "Map of canary_settings values across all api_gateway_stages, keyed the same as var.api_gateway_stages"
-  value       = { for k, v in aws_api_gateway_stage.api_gateway_stages : k => v.canary_settings if v.canary_settings != null && length(v.canary_settings) > 0 }
+  value       = { for k, v in aws_api_gateway_stage.api_gateway_stages : k => one(v.canary_settings) if v.canary_settings != null && length(v.canary_settings) > 0 }
 }
 output "api_gateway_stages_client_certificate_id" {
   description = "Map of client_certificate_id values across all api_gateway_stages, keyed the same as var.api_gateway_stages"
